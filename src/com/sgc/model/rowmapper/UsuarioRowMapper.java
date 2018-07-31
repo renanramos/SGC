@@ -16,7 +16,7 @@ public class UsuarioRowMapper implements RowMapper<Usuario>{
 		u.setId(rs.getLong(UsuarioConstants.ID));
 		u.setNome(rs.getString(UsuarioConstants.NOME));
 		u.setPassword(rs.getString(UsuarioConstants.PASSWORD));
-		u.setUsuario(rs.getString(UsuarioConstants.USUARIO));
+		u.setUsername(rs.getString(UsuarioConstants.USUARIO));
 		return u;
 	}
 

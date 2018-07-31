@@ -25,7 +25,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		.append(UsuarioConstants.PASSWORD + ", ")
 		.append(UsuarioConstants.USUARIO).append(") ")
 		.append(" VALUES (?, ?, ?) RETURNING ").append(UsuarioConstants.ID);
-		Object args[] = {e.getNome(), e.getPassword(), e.getUsuario()};		
+		Object args[] = {e.getNome(), e.getPassword(), e.getUsername()};		
 		e.setId(jdbcTemplate.queryForObject(sql.toString(), args, Long.class));
 	}
 
@@ -37,7 +37,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		.append(UsuarioConstants.USUARIO).append(" = ?, ")
 		.append(UsuarioConstants.PASSWORD).append(" = ? ")
 		.append(" WHERE ").append(UsuarioConstants.ID).append(" = ? ");
-		Object args[] = {e.getNome(), e.getUsuario(), e.getPassword(), e.getId()};
+		Object args[] = {e.getNome(), e.getUsername(), e.getPassword(), e.getId()};
 		jdbcTemplate.update(sql.toString(), args);
 	}
 

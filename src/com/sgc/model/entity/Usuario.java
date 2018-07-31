@@ -6,7 +6,7 @@ public class Usuario extends BaseEntity{
 
 	private String nome;
 	
-	private String usuario;
+	private String username;
 	
 	private String password;
 
@@ -17,13 +17,13 @@ public class Usuario extends BaseEntity{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public String getUsuario() {
-		return usuario;
+	
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -36,7 +36,7 @@ public class Usuario extends BaseEntity{
 
 	@Override
 	public String toString() {
-		return "Usuario [nome=" + nome + ", usuario=" + usuario + ", password="
+		return "Usuario [nome=" + nome + ", usuario=" + username + ", password="
 				+ password + "]";
 	}
 	
