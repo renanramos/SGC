@@ -1,0 +1,1 @@
+web: java -jar SGC-0.0.1.jar target/SGC-0.0.1.war
