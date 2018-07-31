@@ -51,9 +51,8 @@ public class AuthenticationFilter implements HandlerInterceptor{
 		if (uri.startsWith("/fonts/") && uri.endsWith(".eot")) {
 			ok = true;
 		}
-		
-		
-		// URI Livres de Autenticação
+			
+		// URI Livres de Autenticaï¿½ï¿½o
 		if (!ok) {
 			if (uri.startsWith("/home/login")) {
 				ok = true;
@@ -69,7 +68,7 @@ public class AuthenticationFilter implements HandlerInterceptor{
 		
 		//Finalizando
 		if (!ok) {
-            response.sendRedirect("/obivistoria/login");
+            response.sendRedirect("/login");
         }
 		
 		return ok;

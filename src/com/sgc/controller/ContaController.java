@@ -167,7 +167,7 @@ public class ContaController {
 		mv.addObject("meses", util.getAllMeses());
 		mv.addObject("contas", contas);
 		mv.addObject("total", total);
-		mv.addObject("mesSelecionado", "Escolha um mês...");
+		mv.addObject("mesSelecionado", "Escolha um mes...");
 				
 		return mv;
 	}

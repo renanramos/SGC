@@ -23,8 +23,8 @@ public class ContaSchedule {
 	private ContaService contaService;
 	
 	/* 
-	 * Esta função é executada no primeiro dia de cada mês para verificar quais contas  
-	 * estão configuradas como fixas e atualizar o banco. 
+	 * Esta funcao  e executada no primeiro dia de cada mes para verificar quais contas  
+	 * estao configuradas como fixas e atualizar o banco. 
 	 */	
 	//@Scheduled(cron="0 0 1 1 * ?",zone="America/Sao_Paulo")
 	@Scheduled(fixedDelay = 1 * 60000)
@@ -39,7 +39,7 @@ public class ContaSchedule {
 			Calendar c = Calendar.getInstance();
 			c.setTime(dataProximoMes);
 			
-			//adiciona um mês na data de vencimento
+			//adiciona um mes na data de vencimento
 			c.set(Calendar.MONTH, c.get(Calendar.MONTH) - 1);
 			dataProximoMes = c.getTime();
 			
