@@ -53,7 +53,7 @@
 					<form class="form-horizontal" action="<c:url value="/conta/mes"/>"
 						method="post">
 						<div class="input-group">
-							<select id="mes" name="mes" class="form-control">
+							<select id="mes" name="mes" class="form-control" onchange="this.form.submit()">
 								<option>${mesSelecionado}</option>
 								<c:forEach items="${meses}" var="mes" varStatus="index">
 									<option>${mes}</option>
