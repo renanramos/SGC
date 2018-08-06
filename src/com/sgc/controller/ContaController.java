@@ -48,7 +48,7 @@ public class ContaController {
 	public ModelAndView findAllContas(HttpSession session){		
 		
 		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-		ModelAndView mv = new ModelAndView("login");
+		ModelAndView mv = new ModelAndView("index");
 		
 		if(usuario != null){
 			mv = new ModelAndView("conta/contaList");
