@@ -26,8 +26,8 @@ public class ContaSchedule {
 	 * Esta funcao  e executada no primeiro dia de cada mes para verificar quais contas  
 	 * estao configuradas como fixas e atualizar o banco. 
 	 */	
-	//@Scheduled(cron="0 0 1 1 * ?",zone="America/Sao_Paulo")
-	@Scheduled(fixedDelay = 1 * 60000)
+
+	@Scheduled(cron="0 0 1 1 * ?",zone="America/Sao_Paulo")
 	public void atualizaContasFixas() throws ParseException{
 		Date now = new Date();
 		String nowString = df.format(now);
@@ -49,8 +49,7 @@ public class ContaSchedule {
 			conta.setDataPagamento(null);
 			conta.setParcela(0);			
 						
-			System.out.println(conta.toString());
-			//contaService.create(conta);
+			contaService.create(conta);
 		}
 		
 	}
