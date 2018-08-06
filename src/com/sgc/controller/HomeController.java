@@ -39,7 +39,7 @@ public class HomeController {
 	@RequestMapping("usuario/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/home/login";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)

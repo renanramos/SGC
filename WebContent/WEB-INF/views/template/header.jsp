@@ -45,8 +45,11 @@
 				<a class="navbar-brand" href="<c:url value="/conta/filtro"/>" title="Contas" >
 					<span class="glyphicon glyphicon-list-alt" aria-hidden="true" title="Contas"></span>
 				</a>
-				<a class="navbar-brand" href="<c:url value="/usuario"/>" title="UsuÃ¡rios">
-					<span class="glyphicon glyphicon-user" aria-hidden="true" title="UsuÃ¡rios"></span>&nbsp&nbsp${usuarioLogado.nome}
+				<a class="navbar-brand" href="<c:url value="/usuario"/>" title="Usuários">
+					<span class="glyphicon glyphicon-user" aria-hidden="true" title="Usuários"></span>&nbsp&nbsp${usuarioLogado.nome}
+				</a>
+				<a class="navbar-brand" href="<c:url value="/usuario/logout"/>">
+					<span class="glyphicon glyphicon-log-out" aria-hidden="true" title="Sair"></span>&nbspSair
 				</a>
 			</div>
 		</div>
