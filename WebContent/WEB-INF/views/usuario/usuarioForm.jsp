@@ -23,7 +23,7 @@
 					</div>
 					<div class="form-group">
 						<label for="usuario">Usuário</label> <input type="text"
-							class="form-control" id="usuario" name="usuario" value="${usuario.username}"
+							class="form-control" id="usuario" name="username" value="${usuario.username}"
 							placeholder="usuário">
 					</div>
 					<div class="form-group">

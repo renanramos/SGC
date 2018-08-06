@@ -1,6 +1,5 @@
 package com.sgc.model.base.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
