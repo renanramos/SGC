@@ -1,5 +1,6 @@
 package com.sgc.model.base.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,11 +71,18 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	@Override
 	public Usuario findByLogin(String usuario, String password) {
 		StringBuffer sql = new StringBuffer();
+		Usuario usuarioLogin = new Usuario();
 		sql.append(" SELECT * FROM ").append(UsuarioConstants.TABELA)
 		.append(" WHERE ").append(UsuarioConstants.USUARIO).append(" = ? ").append(" AND ")
 		.append(UsuarioConstants.PASSWORD).append(" = ? ");
-		Object args[] = {usuario, password};		
-		return jdbcTemplate.queryForObject(sql.toString(), args, new UsuarioRowMapper());
+		Object args[] = {usuario, password};
+		if (jdbcTemplate.query(sql.toString(), args, new UsuarioRowMapper()).size() > 0){
+			usuarioLogin = jdbcTemplate.query(sql.toString(), args, new UsuarioRowMapper()).get(0);
+		}else{
+			usuarioLogin = null;
+		}
+		
+		return usuarioLogin;
 	}
 
 }

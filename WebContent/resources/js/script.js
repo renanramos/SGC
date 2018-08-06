@@ -1,6 +1,6 @@
 /*Arquivo: script.js
  * 
- * Este arquivo contém as principais funções do sistema.
+ * Este arquivo contem as principais fun�oes do sistema.
  * 
  * 
  * 21.02.17 - Renan Rodrigues Ramos
@@ -67,10 +67,8 @@ function atualizaParcelas(){
 		$('#total').append('R$ ' + total.toFixed(2));
 	}	
 };
-
-
 //=============================================================================== 
-//função principal
+//funcao principal
 //===============================================================================
 $(document).ready(function(){
 	moment.locale('pt-BR');
@@ -80,7 +78,7 @@ $(document).ready(function(){
 	})
 	
 	//=============================================================================== 
-	//Quando carregar a página, verifica cada linha da tabela e 
+	//Quando carregar a pagina, verifica cada linha da tabela e 
 	//atribui uma classe diferente para 
 	//===============================================================================
 	var dataAtual = new Date();
@@ -120,7 +118,7 @@ $(document).ready(function(){
 	}
 	
 	//=============================================================================== 
-	//faz o calculo de diferença de dias entre duas datas
+	//faz o calculo de diferen�a de dias entre duas datas
 	//===============================================================================
 	function diferencaDias(data){
 		var diferencaTempo = Math.abs(converteData(dataVenc).getTime() - new Date());
@@ -129,7 +127,7 @@ $(document).ready(function(){
 	}
 		
 	//=============================================================================== 
-	//corrige pontuação nos vampos de valores 
+	//corrige pontua�ao nos vampos de valores 
 	//===============================================================================
 	$('#valor').each(function(){
 		var val = $(this).val().replace(',','.');

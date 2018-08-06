@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sgc.model.base.service.ContaService;
 import com.sgc.model.entity.Conta;
+import com.sgc.model.entity.Usuario;
 import com.sgc.util.UtilSGC;
 
 @Controller
@@ -45,89 +46,124 @@ public class ContaController {
 	
 	@RequestMapping(value = "conta", method = RequestMethod.GET)
 	public ModelAndView findAllContas(HttpSession session){		
-		double total = 0;
-		ModelAndView mv = new ModelAndView("conta/contaList");
 		
-		List<Conta> contas = contaService.readByAll();
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		ModelAndView mv = new ModelAndView("login");
 		
-		if (!contas.isEmpty()){
-			total = util.calculaTotal(contas);
+		if(usuario != null){
+			mv = new ModelAndView("conta/contaList");
+			
+			double total = 0;
+			
+			List<Conta> contas = contaService.readByAll();
+			
+			if (!contas.isEmpty()){
+				total = util.calculaTotal(contas);
+			}
+			
+			mv.addObject("contas", contas);		
+			mv.addObject("total", total);
 		}
-		
-		mv.addObject("contas", contas);		
-		mv.addObject("total", total);
-		
+				
 		return mv;
 	}
 	
 	@RequestMapping(value = "conta/{id}/view", method = RequestMethod.GET)
 	public ModelAndView viewConta(@PathVariable Long id, HttpSession session){
-		ModelAndView mv = new ModelAndView("conta/contaView");		
-		conta = contaService.readById(id);
-		mv.addObject("conta", conta);
+		ModelAndView mv = new ModelAndView("login");	
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		if (usuario != null){
+			mv = new ModelAndView("conta/contaView");
+			conta = contaService.readById(id);
+			mv.addObject("conta", conta);
+		}		
 		return mv;
 	}
 	
 	@RequestMapping(value = "conta/novo")
-	public ModelAndView novaConta(){
-		ModelAndView mv = new ModelAndView("conta/contaForm");
+	public ModelAndView novaConta(HttpSession session){
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		ModelAndView mv = new ModelAndView("login");
+		if (usuario != null){
+			mv = new ModelAndView("conta/contaForm");
+		}
+		
 		return mv;
 	}
 	
 	@RequestMapping(value = "conta/novo", method = RequestMethod.POST)
 	public String saveConta(@ModelAttribute("conta") Conta conta, BindingResult result, HttpSession session){
-		if (conta != null){			
-			if(conta.getParcela() == null){conta.setParcela(0);};
-			if(conta.getParcela() > 1){
-				Conta contaParcela = new Conta();
-				for(int i = 0; i < conta.getParcela(); i++){
-					contaParcela.setDescricao(conta.getDescricao());
-					contaParcela.setValor(conta.getValor());
-					contaParcela.setParcela(i);
-					contaParcela.setFixa(conta.isFixa());
-					contaParcela.setDataInicio(conta.getDataInicio());
-					contaParcela.setDataFim(conta.getDataFim());					
-					
-					Date d = null; 
-					
-					if (conta.getDataVencimento() == null){
-						d = new Date();
-					}else{
-						d = conta.getDataInicio();
-					}							
-					
-					Calendar c = Calendar.getInstance();
-					c.setTime(d);
-					
-					c.set(Calendar.MONTH, c.get(Calendar.MONTH) + i);
-					
-					contaParcela.setDataVencimento(c.getTime());
-					contaService.create(contaParcela);					
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		String retorno = "redirect:/";
+		if (usuario != null){
+			if (conta != null){			
+				if(conta.getParcela() == null){conta.setParcela(0);};
+				if(conta.getParcela() > 1){
+					Conta contaParcela = new Conta();
+					for(int i = 0; i < conta.getParcela(); i++){
+						contaParcela.setDescricao(conta.getDescricao());
+						contaParcela.setValor(conta.getValor());
+						contaParcela.setParcela(i);
+						contaParcela.setFixa(conta.isFixa());
+						contaParcela.setDataInicio(conta.getDataInicio());
+						contaParcela.setDataFim(conta.getDataFim());					
+						
+						Date d = null; 
+						
+						if (conta.getDataVencimento() == null){
+							d = new Date();
+						}else{
+							d = conta.getDataInicio();
+						}							
+						
+						Calendar c = Calendar.getInstance();
+						c.setTime(d);
+						
+						c.set(Calendar.MONTH, c.get(Calendar.MONTH) + i);
+						
+						contaParcela.setDataVencimento(c.getTime());
+						contaService.create(contaParcela);					
+					}
+				}else{				
+					contaService.create(conta);
 				}
-			}else{				
-				contaService.create(conta);
 			}
+			retorno = "redirect:/conta/filtro";
 		}
-		return "redirect:/conta/filtro";
+		
+		return retorno;
 	}
 	
 	@RequestMapping(value = "conta/{id}/excluir", method = RequestMethod.GET)
 	public String excluiConta(@PathVariable Long id, HttpSession session){
-		contaService.delete(id);
-		return "redirect:/conta/filtro";
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		String retorno = "redirect:/";
+		
+		if (usuario != null){
+			retorno = "redirect:/conta/filtro"; 
+			contaService.delete(id);			
+		}
+		return retorno;
 	}
 	
 	@RequestMapping(value = "conta/{id}/editar", method = RequestMethod.GET)
 	public ModelAndView editarConta(@PathVariable Long id, HttpSession session){
-		ModelAndView mv = new ModelAndView("conta/contaForm");
-		Conta conta = contaService.readById(id);
-		mv.addObject("conta", conta);			
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		ModelAndView mv = null;
+		
+		if (usuario != null){
+			mv = new ModelAndView("conta/contaForm");
+			Conta conta = contaService.readById(id);
+			mv.addObject("conta", conta);			
+		}
+			
 		return mv;
 	}
 		
 	@RequestMapping(value = "conta/{id}/editar", method = RequestMethod.POST)
 	public String updateConta(@ModelAttribute Conta conta, HttpSession session){
-		if (conta != null){
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		if (conta != null && usuario != null){
 			contaService.update(conta);
 		}
 		return "redirect:/conta/filtro";
@@ -135,40 +171,48 @@ public class ContaController {
 	
 	@RequestMapping(value = "conta/filtro")
 	public ModelAndView filtraContas(@RequestParam(required=false, name="dataInicial") Date dataInicial, @RequestParam(required=false, name="dataFim") Date dataFim, HttpSession session){
-		double total = 0;
-		Calendar calendar = Calendar.getInstance();
 		
-		List<Conta> contas = null;		
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		ModelAndView mv = null;
 		
-		ModelAndView mv = new ModelAndView("conta/contaList");
-		
-		if ((dataInicial != null) && (dataFim != null)){
+		if (usuario != null){
+			double total = 0;
+			Calendar calendar = Calendar.getInstance();
 			
-			contas = contaService.readByPeriodo(dataInicial, dataFim);
-						
-		}else{			
+			mv = new ModelAndView("conta/contaList");
 			
-			calendar.setTime(new Date());
-			
-			calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
-			dataInicial = calendar.getTime();	
-			
-			calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-			dataFim = calendar.getTime();			
-			
-			contas = contaService.readByPeriodo(dataInicial, dataFim);
-			
-		}
-		
-		if (!contas.isEmpty()){
-			total = util.calculaTotal(contas);
-		}
-		
-		mv.addObject("meses", util.getAllMeses());
-		mv.addObject("contas", contas);
-		mv.addObject("total", total);
-		mv.addObject("mesSelecionado", "Escolha um mes...");
+			List<Conta> contas = null;		
+
+			if ((dataInicial != null) && (dataFim != null)){
 				
+				contas = contaService.readByPeriodo(dataInicial, dataFim);
+							
+			}else{			
+				
+				calendar.setTime(new Date());
+				
+				calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+				dataInicial = calendar.getTime();	
+				
+				calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+				dataFim = calendar.getTime();			
+				
+				contas = contaService.readByPeriodo(dataInicial, dataFim);
+				
+			}
+			
+			if (!contas.isEmpty()){
+				total = util.calculaTotal(contas);
+			}
+			
+			mv.addObject("meses", util.getAllMeses());
+			mv.addObject("contas", contas);
+			mv.addObject("total", total);
+			mv.addObject("mesSelecionado", "Escolha um mes...");
+		}else{
+			mv = new ModelAndView("redirect:/");
+		}
+						
 		return mv;
 	}
 	
@@ -179,7 +223,7 @@ public class ContaController {
 		
 		double total = 0;
 		int pos = util.getMes(mes);
-				
+		
 		Calendar c = Calendar.getInstance();
 		c.set(c.getWeekYear(), pos-1, c.getActualMinimum(Calendar.DAY_OF_MONTH));
 		dataInicial = c.getTime();

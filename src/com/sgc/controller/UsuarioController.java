@@ -23,9 +23,16 @@ public class UsuarioController {
 	
 	@RequestMapping(value = "usuario", method = RequestMethod.GET)
 	public ModelAndView findAllUsuarios(HttpSession session){
-		ModelAndView mv = new ModelAndView("usuario/usuarioList");
-		List<Usuario> usuarios = usuarioService.readByAll();		
-		mv.addObject("usuarios", usuarios);
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		
+		ModelAndView mv = new ModelAndView("login");
+		
+		if (usuario != null){
+			mv = new ModelAndView("usuario/usuarioList");
+			List<Usuario> usuarios = usuarioService.readByAll();		
+			mv.addObject("usuarios", usuarios);
+		}
+		
 		return mv;
 	}
 	
@@ -37,32 +44,45 @@ public class UsuarioController {
 	
 	@RequestMapping(value = "usuario/novo", method = RequestMethod.POST)
 	public String saveUsuario(@ModelAttribute Usuario user, HttpSession session){
-		String retorno = "redirect:/usuario/novo";
-		if (user != null){
-			usuarioService.create(user);
-			retorno = "redirect:/usuario";
-		}
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		String retorno = "redirect:/";
+		if(usuario != null){
+			retorno = "redirect:/usuario/novo";
+			if (user != null){
+				usuarioService.create(user);
+				retorno = "redirect:/usuario";
+			}
+		}		
 		return retorno;
 	}
 
 	@RequestMapping(value = "usuario/{id}/editar", method = RequestMethod.GET)
 	public ModelAndView editarUsuario(@PathVariable Long id, HttpSession session){
-		ModelAndView mv = new ModelAndView("usuario/usuarioForm");
-		Usuario usuario = usuarioService.readById(id);
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		ModelAndView mv = new ModelAndView("login");
 		if (usuario != null){
-			mv.addObject("usuario", usuario);
-		}else{
-			mv = new ModelAndView("usuario/usuarioList");
-		}
+			mv = new ModelAndView("usuario/usuarioForm");
+			Usuario user = usuarioService.readById(id);
+			if (user != null){
+				mv.addObject("usuario", user);
+			}else{
+				mv = new ModelAndView("usuario/usuarioList");
+			}
+		}		
 		return mv;
 	}
 	
 	@RequestMapping(value = "usuario/{id}/editar", method = RequestMethod.POST)
 	public String updateUsuario(@ModelAttribute Usuario user, HttpSession session){
-		if (user != null){
-			usuarioService.update(user);
-		}
-		return "redirect:/usuario";
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		String retorno = "redirect:/login";
+		if (usuario != null){
+			if (user != null){
+				usuarioService.update(user);
+			}
+			retorno = "redirect:/usuario";
+		}		
+		return retorno;
 	}
 		
 	@RequestMapping(value = "usuario/{id}/excluir", method = RequestMethod.GET)

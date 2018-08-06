@@ -43,7 +43,7 @@
 						<tbody>
 							<td>${usuario.id}</td>
 							<td>${usuario.nome}</td>
-							<td>${usuario.usuario}</td>
+							<td>${usuario.username}</td>
 							<td>
 								<a href="usuario/${usuario.id}/editar"><span class="glyphicon glyphicon-pencil"></span></a>
 							</td>

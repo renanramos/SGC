@@ -36,7 +36,7 @@
 	<div class="container">
 		<div class="form-login">
 			<div class="row">
-				<form action="home/login" method="post">
+				<form id="formLogin" action="home/login" method="post">
 					<div class="form-group">
 						<label for="usuario">Usuário</label> <input type="text"
 							class="form-control" id="usuario" name="usuario" placeholder="Usuario">

@@ -22,17 +22,17 @@ public class HomeController {
 	@RequestMapping(value = "home/login", method = RequestMethod.POST)
 	public String login(@RequestParam("usuario") String usuario, @RequestParam("password") String password, HttpSession session){
 		
-		String retorno = "redirect:/home/login";
+		String retorno = "redirect:/";
+		
 		Usuario user = (Usuario) session.getAttribute("usuarioLogado");
 		
-		if( user == null){
+		if(user == null){
 			user = usuarioService.findByLogin(usuario, password);
 			if(user != null){
 				session.setAttribute("usuarioLogado", user);
-				retorno = "redirect:/conta/filtro";				
+				retorno = "redirect:/conta/filtro";	
 			}
-		}
-		
+		}		
 		return retorno;
 	}
 		
@@ -44,6 +44,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(ModelMap model, HttpSession session){
+		ModelAndView mv = new ModelAndView("/");
 		return "index";
 	}
 	
