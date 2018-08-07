@@ -25,7 +25,7 @@ public class UsuarioController {
 	public ModelAndView findAllUsuarios(HttpSession session){
 		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 		
-		ModelAndView mv = new ModelAndView("login");
+		ModelAndView mv = new ModelAndView("index");
 		
 		if (usuario != null){
 			mv = new ModelAndView("usuario/usuarioList");
@@ -59,7 +59,7 @@ public class UsuarioController {
 	@RequestMapping(value = "usuario/{id}/editar", method = RequestMethod.GET)
 	public ModelAndView editarUsuario(@PathVariable Long id, HttpSession session){
 		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-		ModelAndView mv = new ModelAndView("login");
+		ModelAndView mv = new ModelAndView("index");
 		if (usuario != null){
 			mv = new ModelAndView("usuario/usuarioForm");
 			Usuario user = usuarioService.readById(id);
@@ -75,7 +75,7 @@ public class UsuarioController {
 	@RequestMapping(value = "usuario/{id}/editar", method = RequestMethod.POST)
 	public String updateUsuario(@ModelAttribute Usuario user, HttpSession session){
 		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-		String retorno = "redirect:/login";
+		String retorno = "redirect:/index";
 		if (usuario != null){
 			if (user != null){
 				usuarioService.update(user);
