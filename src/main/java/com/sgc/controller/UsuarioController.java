@@ -38,7 +38,12 @@ public class UsuarioController {
 	
 	@RequestMapping(value = "usuario/novo")
 	public ModelAndView novoUsuario(HttpSession session){
-		ModelAndView mv = new ModelAndView("usuario/usuarioForm");		
+		ModelAndView mv = new ModelAndView("index");
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		if (usuario != null){
+			mv = new ModelAndView("usuario/usuarioForm");
+		}
+		
 		return mv;
 	}
 	
@@ -86,9 +91,15 @@ public class UsuarioController {
 	}
 		
 	@RequestMapping(value = "usuario/{id}/excluir", method = RequestMethod.GET)
-	public String deleteUsuario(@PathVariable Long id, HttpSession session){
-		usuarioService.delete(id);
-		return "redirect:/usuario";
+	public String deleteUsuario(@PathVariable Long id, HttpSession session){		
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		String retorno = "redirect:/index";
+		if(usuario != null){
+			usuarioService.delete(id);
+			retorno = "redirect:/usuario";
+		}
+
+		return retorno;
 	}
 	
 }
