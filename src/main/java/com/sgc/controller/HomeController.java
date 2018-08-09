@@ -44,8 +44,8 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(ModelMap model, HttpSession session){
-		ModelAndView mv = new ModelAndView("/");
-		return "index";
+		String retorno = "index";
+		return retorno;
 	}
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)

@@ -1,9 +1,11 @@
 package com.sgc.controller;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -37,6 +39,10 @@ public class ContaController {
 	private Conta conta = new Conta();
 	private UtilSGC util = new UtilSGC();
 	
+	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	
+	Locale ptBt = new Locale("pt","BR");
+	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -61,10 +67,12 @@ public class ContaController {
 				total = util.calculaTotal(contas);
 			}
 			
-			mv.addObject("contas", contas);		
-			mv.addObject("total", total);
+			NumberFormat nbFormat = NumberFormat.getCurrencyInstance(ptBt);
+			
+			mv.addObject("contas", contas);
+			mv.addObject("total", nbFormat.format(total));
 		}
-				
+
 		return mv;
 	}
 	
@@ -172,12 +180,17 @@ public class ContaController {
 	@RequestMapping(value = "conta/filtro")
 	public ModelAndView filtraContas(@RequestParam(required=false, name="dataInicial") Date dataInicial, @RequestParam(required=false, name="dataFim") Date dataFim, HttpSession session){
 		
+		String dateIni = null; 
+		String dateFim = null; 		
+		
+		String mes= "";
+		
 		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 		ModelAndView mv = null;
 		
 		if (usuario != null){
 			double total = 0;
-			Calendar calendar = Calendar.getInstance();
+			Calendar calendar = Calendar.getInstance();			
 			
 			mv = new ModelAndView("conta/contaList");
 			
@@ -186,9 +199,12 @@ public class ContaController {
 			if ((dataInicial != null) && (dataFim != null)){
 				
 				contas = contaService.readByPeriodo(dataInicial, dataFim);
-							
-			}else{			
+
+				dateIni = format.format(dataInicial);
+				dateFim = format.format(dataFim);
 				
+				mes = UtilSGC.mesesList.get(calendar.MONTH + 1);
+			}else{			
 				calendar.setTime(new Date());
 				
 				calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
@@ -199,6 +215,11 @@ public class ContaController {
 				
 				contas = contaService.readByPeriodo(dataInicial, dataFim);
 				
+				dateIni = format.format(dataInicial);
+				dateFim = format.format(dataFim);
+				
+				mes = UtilSGC.mesesList.get(calendar.MONTH + 1);
+				System.out.println(mes);
 			}
 			
 			if (!contas.isEmpty()){
@@ -206,9 +227,11 @@ public class ContaController {
 			}
 			
 			mv.addObject("meses", util.getAllMeses());
+			mv.addObject("dataInicial", dateIni);
+			mv.addObject("dataFim", dateFim);
 			mv.addObject("contas", contas);
 			mv.addObject("total", total);
-			mv.addObject("mesSelecionado", "Escolha um mes...");
+			mv.addObject("mesSelecionado", mes);
 		}else{
 			mv = new ModelAndView("redirect:/");
 		}
