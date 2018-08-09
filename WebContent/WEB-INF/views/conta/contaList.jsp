@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="../template/header.jsp" />
+<jsp:include page="../template/header.jsp"/>
+<fmt:setLocale value="pt-BR"/>
 <title>SGC - Conta</title>
 <link href="<c:url value="/resources/css-custom/style.css"/>"
 	rel="stylesheet" />
@@ -138,8 +139,7 @@
 						<div class="panel-body">
 							<h3>
 								Total:&nbsp&nbsp
-								<fmt:formatNumber value="${total}" type="currency"
-									pattern="R$ ###,###,#00.00" currencySymbol="R$ " />
+								<fmt:formatNumber value="${total}" type="currency" currencySymbol="R$ " minFractionDigits="2"/>  <!-- pattern="R$ ###,###,#00.00" currencySymbol="R$ "  -->
 							</h3>
 						</div>
 					</div>

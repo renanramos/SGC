@@ -8,8 +8,7 @@
 <title>SGC</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link href="<c:url value="/resources/css/bootstrap.css" />"
 	rel="stylesheet" />
@@ -45,8 +44,8 @@
 				<a class="navbar-brand" href="<c:url value="/conta/filtro"/>" title="Contas" >
 					<span class="glyphicon glyphicon-list-alt" aria-hidden="true" title="Contas"></span>
 				</a>
-				<a class="navbar-brand" href="<c:url value="/usuario"/>" title="Usuários">
-					<span class="glyphicon glyphicon-user" aria-hidden="true" title="Usuários"></span>&nbsp&nbsp${usuarioLogado.nome}
+				<a class="navbar-brand" href="<c:url value="/usuario/${usuarioLogado.id}"/>" title="Usuarios">
+					<span class="glyphicon glyphicon-user" aria-hidden="true" title="Usuarios"></span>&nbsp&nbsp${usuarioLogado.nome}
 				</a>
 				<a class="navbar-brand" href="<c:url value="/usuario/logout"/>">
 					<span class="glyphicon glyphicon-log-out" aria-hidden="true" title="Sair"></span>&nbspSair
