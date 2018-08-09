@@ -78,7 +78,7 @@ public class ContaController {
 	
 	@RequestMapping(value = "conta/{id}/view", method = RequestMethod.GET)
 	public ModelAndView viewConta(@PathVariable Long id, HttpSession session){
-		ModelAndView mv = new ModelAndView("login");	
+		ModelAndView mv = new ModelAndView("index");	
 		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 		if (usuario != null){
 			mv = new ModelAndView("conta/contaView");
@@ -91,7 +91,7 @@ public class ContaController {
 	@RequestMapping(value = "conta/novo")
 	public ModelAndView novaConta(HttpSession session){
 		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-		ModelAndView mv = new ModelAndView("login");
+		ModelAndView mv = new ModelAndView("index");
 		if (usuario != null){
 			mv = new ModelAndView("conta/contaForm");
 		}
