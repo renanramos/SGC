@@ -11,7 +11,6 @@ import com.sgc.model.entity.Conta;
 
 public class UtilSGC {
 
-
 	private static Locale ptBr = new Locale("pt", "BR");
 	private static DateFormatSymbols dfs = DateFormatSymbols.getInstance(ptBr);
 	private Map<String, Integer> meses = new HashMap<String, Integer>();	

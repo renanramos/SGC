@@ -1,76 +1,79 @@
 <%@ page language="java" contentType="text/html"%>
 <%@include file="../../imports.jspf"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html>
+<html la>
 <head>
-<jsp:include page="../template/header.jsp"/>
-<fmt:setLocale value="pt-BR"/>
+<jsp:include page="../template/header.jsp" />
+<fmt:setLocale value="pt_BR" scope="session"/>
 <title>SGC - Conta</title>
 <link href="<c:url value="/resources/css-custom/style.css"/>"
 	rel="stylesheet" />
 </head>
 <body>
-	<div class="margem"></div>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="page-header">
-			<h3>
-				Contas <small>registradas no sistema.</small>
-			</h3>
+			<h2>Contas</h2>
 		</div>
 		<div class="row">
-			<div class="col-md-7">
-				<form method="post" action="<c:url value="/conta/filtro"/>">
-					<legend>
-						<span class="glyphicon glyphicon-filter" aria-hidden="true"></span>&nbspFiltro
-					</legend>
-					<div class="col-md-4">
-						<div class="input-group input-group-md">
-							De:<input type="date" id="dataInicial" class="form-control"
-								name="dataInicial" pattern="dd/MM/yyyy" value="${dataInicial}" />
+			<div class="col-md-6">
+				<div class="col-md-12 options">
+					<form method="post" action="<c:url value="/conta/filtro"/>" >
+						<legend class="legend-custom">
+							<span class="glyphicon glyphicon-filter" aria-hidden="true"></span>Filtro
+						</legend>
+						<div class="col-md-4">
+							<div class="input-group input-group-md">
+								De:<input type="date" id="dataInicial" class="form-control"
+									name="dataInicial" pattern="dd/MM/yyyy" value="${dataInicial}" />
+							</div>
 						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="input-group input-group-md">
-							Até:<input type="date" id="dataFim" class="form-control"
-								name="dataFim" pattern="dd/MM/yyyy" value="${dataFim}" />
+						<div class="col-md-4">
+							<div class="input-group input-group-md">
+								Até:<input type="date" id="dataFim" class="form-control"
+									name="dataFim" pattern="dd/MM/yyyy" value="${dataFim}" />
+							</div>
 						</div>
-					</div>
-					<div class="col-md-4">
-						&nbsp
-						<div class="input-group">
-							<button class="btn btn-primary" type="submit" data-toggle="tooltip" data-placement="top" title="Filtro por período">Aplicar
-								filtro</button>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="col-md-5">
-				<legend>
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbspPesquisa
-				</legend>
-				<div class="col-md-10">
-					&nbsp
-					<form class="form-horizontal" action="<c:url value="/conta/mes"/>"
-						method="post">
-						<div class="input-group">
-							<select id="mes" name="mes" class="form-control" onchange="this.form.submit()">
-								<option>${mesSelecionado}</option>
-								<c:forEach items="${meses}" var="mes" varStatus="index">
-									<option>${mes}</option>
-									<!--  -  -->
-								</c:forEach>
-							</select>
-							<div class="input-group-btn">
-								<button class="btn btn-default" type="submit" data-toggle="tooltip" data-placement="top" title="Fazer pesquisa por mês">GO!</button>
+						<div class="col-md-4">							
+							<div class="input-group">
+								<button class="btn btn-primary" type="submit"
+									data-toggle="tooltip" data-placement="top"
+									title="Filtro por período" id="btn-filtro">Filtrar</button>
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
-			<div class="col-lg-12">
-				<div class="col-md-6"></div>
-				<div class="col-md-6"></div>
+			<div class="col-md-6">
+				<div class="col-md-12 options">
+					<legend class="legend-custom">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbspPesquisa
+					</legend>
+					<div class="col-md-12">
+						&nbsp
+						<form class="form-horizontal" action="<c:url value="/conta/mes"/>"
+							method="post">
+							<div class="input-group">
+								<select id="mes" name="mes" class="form-control"
+									onchange="this.form.submit()">
+									<option>${mesSelecionado}</option>
+									<c:forEach items="${meses}" var="mes" varStatus="index">
+										<option>${mes}</option>										
+									</c:forEach>
+								</select>
+								<div class="input-group-btn">
+									<button class="btn btn-default" type="submit"
+										data-toggle="tooltip" data-placement="top"
+										title="Fazer pesquisa por mês">GO!</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
 				</br> </br>
 				<table class="table table-hover table-striped" id="table">
 					<c:choose>
@@ -94,8 +97,7 @@
 								<c:forEach items="${contas}" var="conta">
 									<tr id="listaContas" class="active">
 										<td>${conta.descricao}</td>
-										<td><c:set var="valor" value="${conta.valor}" /> <fmt:setLocale
-												value="pt_BR" scope="application" /> <fmt:formatNumber
+										<td><c:set var="valor" value="${conta.valor}" /> <fmt:formatNumber
 												value="${valor}" type="currency" pattern="R$ ###,###,#00.00"
 												currencySymbol="R$ " /></td>
 										<td class="td-table" id="idPagar"><input id="dataPag"
@@ -104,55 +106,67 @@
 												test="${!empty conta.dataPagamento}">
 												<span class="glyphicon glyphicon-ok"></span>
 											</c:if></td>
-										<td class="td-table"><input id="dataVenc"
+										<td class="td-table">
+										<input id="dataVenc"
 											value="${conta.dataVencimento}" type="hidden" /> <fmt:formatDate
-												value="${conta.dataVencimento}" pattern="dd/MM/yyyy" /> <c:if
-												test="${empty conta.dataVencimento}">
+												value="${conta.dataVencimento}" pattern="dd/MM/yyyy" /> 
+											<c:if test="${empty conta.dataVencimento}">
 												<span class="glyphicon glyphicon-minus"></span>
-											</c:if></td>
-										<td class="td-table">${conta.parcela}</td>
-										<td class="td-table">											
-											<a id="labelPagar" class="label label-warning"
-												type="button" data-toggle="modal" data-target="#modalPagar"
-												data-whatever="${conta.id}">
-												<span id="iconPagar" class="glyphicon glyphicon-refresh" data-toggle="tooltip" data-placement="top" title="Pagar"></span>
-											</a>
+											</c:if>
 										</td>
+										<td class="td-table">
+											<input id="parcela" value="${conta.parcela}" type="hidden">
+											<c:if test="${conta.parcela == 0}">
+												<span class="glyphicon glyphicon-minus"></span>
+											</c:if>											
+										</td>
+										<td class="td-table"><a id="labelPagar"
+											class="label label-warning" type="button" data-toggle="modal"
+											data-target="#modalPagar" data-whatever="${conta.id}"> <span
+												id="iconPagar" class="glyphicon glyphicon-refresh"
+												data-toggle="tooltip" data-placement="top" title="Pagar"></span>
+										</a></td>
 										<td class="td-table"><a class="label label-info"
 											href="<c:url value="/conta/${conta.id}/view"/>"><span
-												class="glyphicon glyphicon-eye-open" data-toggle="tooltip" data-placement="top" title="Visualizar"></span></a></td>
+												class="glyphicon glyphicon-eye-open" data-toggle="tooltip"
+												data-placement="top" title="Visualizar"></span></a></td>
 										<td class="td-table"><a class="label label-primary"
-											href="<c:url value="/conta/${conta.id}/editar"/>"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="Editar"></span></a></td>
+											href="<c:url value="/conta/${conta.id}/editar"/>"><span
+												class="glyphicon glyphicon-pencil" data-toggle="tooltip"
+												data-placement="top" title="Editar"></span></a></td>
 										<td class="td-table"><a class="label label-danger"
 											type="button" data-toggle="modal" data-target="#modal"
 											data-whatever="${conta.id}"><span
-												class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Excluir"></span></a></td>
+												class="glyphicon glyphicon-trash" data-toggle="tooltip"
+												data-placement="top" title="Excluir"></span></a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
 							<br />
 						</c:otherwise>
 					</c:choose>
-				</table>
-				<div class="panel panel-default">
-					<div class="col-md-10">
-						<div class="panel-body">
-							<h3>
-								Total:&nbsp&nbsp
-								<fmt:formatNumber value="${total}" type="currency" currencySymbol="R$ " minFractionDigits="2"/>  <!-- pattern="R$ ###,###,#00.00" currencySymbol="R$ "  -->
-							</h3>
-						</div>
-					</div>
-					<div class="col-md-2">
-						&nbsp
-						<div class="input-group">
-							<a class="btn btn-primary btn-lg" type="button"
-								href="<c:url value="/conta/novo"/>">Adicionar</a>
-						</div>
-					</div>
-				</div>
+				</table>				
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-12 options">				
+				<div class="col-md-10">
+					<div class="panel-body">
+						<h3>
+							Total: R$ 
+							<fmt:formatNumber value="${total}" type="currency"
+								currencySymbol="R$" minFractionDigits="2" pattern="##,###,###.##" />
+						</h3>
+					</div>
+				</div>
+				<div class="col-md-2" id="adicionar-conta">						
+					<div class="input-group">
+						<a class="btn btn-success btn-lg" type="button"
+							href="<c:url value="/conta/novo"/>">Nova conta</a>
+					</div>
+				</div>
+			</div>			
+		</div>		
 		</br>
 	</div>
 	<!-- Modal Excluir-->

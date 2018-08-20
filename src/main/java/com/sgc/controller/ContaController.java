@@ -41,7 +41,7 @@ public class ContaController {
 	
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	
-	Locale ptBt = new Locale("pt","BR");
+	Locale ptBR = new Locale("pt","BR");
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -67,7 +67,7 @@ public class ContaController {
 				total = util.calculaTotal(contas);
 			}
 			
-			NumberFormat nbFormat = NumberFormat.getCurrencyInstance(ptBt);
+			NumberFormat nbFormat = NumberFormat.getCurrencyInstance(ptBR);
 			
 			mv.addObject("contas", contas);
 			mv.addObject("total", nbFormat.format(total));
@@ -184,6 +184,7 @@ public class ContaController {
 		String dateFim = null; 		
 		
 		String mes= "";
+		int mesId = 0;
 		
 		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 		ModelAndView mv = null;
@@ -205,6 +206,7 @@ public class ContaController {
 				
 				mes = UtilSGC.mesesList.get(calendar.MONTH + 1);
 			}else{			
+				mesId = Calendar.getInstance().get(Calendar.MONTH);
 				calendar.setTime(new Date());
 				
 				calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
@@ -217,9 +219,8 @@ public class ContaController {
 				
 				dateIni = format.format(dataInicial);
 				dateFim = format.format(dataFim);
-				
-				mes = UtilSGC.mesesList.get(calendar.MONTH + 1);
-				System.out.println(mes);
+
+				mes = UtilSGC.mesesList.get(mesId);				
 			}
 			
 			if (!contas.isEmpty()){
