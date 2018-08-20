@@ -10,7 +10,7 @@
 	rel="stylesheet" />
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="margem">
 				<legend>Contas</legend>

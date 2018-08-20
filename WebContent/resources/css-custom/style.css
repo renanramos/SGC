@@ -1,3 +1,18 @@
+body{
+	background-color: #ADD8E6;
+}
+
+.container-fluid{
+	margin-top: 40px;
+	border-radius: 15px;
+	background-color: #FFF;
+	margin-right: 100px;
+	margin-left: 100px;
+	padding-top: 20px;
+	padding-right: 40px;
+	padding-left: 40px;	
+}
+
 .login {
 	background: #F0F8FF;
 }
@@ -5,7 +20,7 @@
 .form-login {
 	width: 400px;
 	margin-left: 350px;
-	margin-top: 200px;
+	margin-top: 50px;
 	padding: 30px;
 	background: #fff;
 	border-radius: 10px;
@@ -14,16 +29,69 @@
 	border-width: 1px;	
 }
 
-.margem {
-	margin-top: 70px;
-}
-
 .margem-list {
 	margin-top: 20px;
 }
 
 .td-table{
 	 text-align: center;
+}
+
+table{
+	border-radius: 10px;
+	border-style: solid;
+	border-color: #000;	
+	border-width: 1px;	
+}
+
+thead{	
+	color: white;
+	font-size: 16px;
+	font-weight: bolder;
+	text-align: right;
+	background-color: #2F4F4F;	
+}
+
+#adicionar-conta{
+	margin-top: 20px;
+}
+
+.legend-custom{
+	font-size: 16px;
+}
+
+#img-login{
+	margin: 5px 10px 20px 85px;
+	border: 1px solid #DCDCDC;
+	border-radius: 15px;
+	width: 200px;
+}
+
+#btn-acessar{
+	margin-left: 120px;
+	margin-right: 100px;
+	font-weight: bold;
+	font-size: large;
+	margin-top: 20px;
+	padding: 10px 30px 10px 30px;
+}
+
+#btn-filtro{
+	font-weight: bold;
+	font-size: 13px;
+	margin-top: 20px;
+	margin-left: 50px;
+	padding: 5px 20px 5px 20px;
+}
+
+.options{
+	background-color: #f0e6ff;
+	padding: 15px 15px 15px 15px;
+	border-style: solid;
+	border-color: #CDCDCD;
+	border-width: 1px;	
+	border-radius: 10px;
+	font-family: 'Arial';
 }
 
 #senhaNaoConfere{
