@@ -204,7 +204,7 @@ public class ContaController {
 				dateIni = format.format(dataInicial);
 				dateFim = format.format(dataFim);
 				
-				mes = UtilSGC.mesesList.get(calendar.MONTH + 1);
+				mes = UtilSGC.mesesList.get(Calendar.getInstance().get(Calendar.MONTH));
 			}else{			
 				mesId = Calendar.getInstance().get(Calendar.MONTH);
 				calendar.setTime(new Date());

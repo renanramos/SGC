@@ -3,7 +3,7 @@ body{
 }
 
 .container-fluid{
-	margin-top: 40px;
+	margin-top: 100px;
 	border-radius: 15px;
 	background-color: #FFF;
 	margin-right: 100px;
@@ -85,10 +85,10 @@ thead{
 }
 
 .options{
-	background-color: #f0e6ff;
+	background-color: #eaeaea;
 	padding: 15px 15px 15px 15px;
 	border-style: solid;
-	border-color: #CDCDCD;
+	border-color: #232020;
 	border-width: 1px;	
 	border-radius: 10px;
 	font-family: 'Arial';
