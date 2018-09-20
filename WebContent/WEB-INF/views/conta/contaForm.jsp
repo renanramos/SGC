@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <jsp:include page="../template/header.jsp" />
 <title>SGC - Cadastro</title>
 <link href="<c:url value="/resources/css-custom/style.css"/>"

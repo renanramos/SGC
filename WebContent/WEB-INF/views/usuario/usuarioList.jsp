@@ -5,10 +5,11 @@
 <head>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <jsp:include page="../template/header.jsp" />
+<link href="<c:url value="/resources/css-custom/style.css"/>" rel="stylesheet" />
 <title>SGC - Usuários</title>
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="margem">
 				<div class="col-lg-6">
@@ -19,14 +20,7 @@
 							<button class="btn btn-defaulty" type="button">Pesquisar</button>
 						</span>
 					</div>
-				</div>
-				<div class="col-lg-6">
-					<div class="input-group">
-						<a class="btn btn-primary" type="button" href="<c:url value="/usuario/novo"/>">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp&nbspAdicionar
-						</a>
-					</div>
-				</div>
+				</div><br>
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -53,6 +47,17 @@
 						</tbody>
 					</c:forEach>
 				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="md-col-4"></div>
+			<div class="md-col-4"></div>			
+			<div class="md-col-4">
+				<div class="input-group">
+					<a class="btn btn-primary" type="button" href="<c:url value="/usuario/novo"/>" id="btn-adicionar">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>&nbsp&nbspAdicionar
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>

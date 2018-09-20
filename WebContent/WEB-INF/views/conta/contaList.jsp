@@ -2,7 +2,7 @@
 <%@include file="../../imports.jspf"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html la>
+<html>
 <head>
 <jsp:include page="../template/header.jsp" />
 <fmt:setLocale value="pt_BR" scope="session"/>

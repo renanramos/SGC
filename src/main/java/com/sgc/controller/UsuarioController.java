@@ -102,4 +102,20 @@ public class UsuarioController {
 		return retorno;
 	}
 	
+	@RequestMapping(value="usuario/{id}/view", method=RequestMethod.GET)
+	public ModelAndView readByIdUsuario(@PathVariable Long id, HttpSession session){
+		Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+		ModelAndView mv = new ModelAndView("index");
+		if(usuarioLogado != null){
+			mv = new ModelAndView("usuario/usuarioView");
+			Usuario usuario = usuarioService.readById(id);
+			if(usuario != null){
+				mv.addObject("usuario", usuario);
+			}else{
+				mv = new ModelAndView("usuario/usuarioList");
+			}
+		}
+		return mv;
+	}
+	
 }
